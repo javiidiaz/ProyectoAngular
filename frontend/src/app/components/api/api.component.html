@@ -1,0 +1,50 @@
+<div class="container my-5">
+  <h2 class="text-center mb-5">Lista de Coches</h2>
+
+  <!-- Filtros -->
+  <div class="row mb-4">
+    <div class="col-md-2">
+      <input type="text" class="form-control" placeholder="Marca" [(ngModel)]="marca" (ngModelChange)="cargarCoches()">
+    </div>
+    <div class="col-md-2">
+      <input type="text" class="form-control" placeholder="Modelo" [(ngModel)]="modelo" (ngModelChange)="cargarCoches()">
+    </div>
+    <div class="col-md-2">
+      <input type="number" class="form-control" placeholder="Precio Min" [(ngModel)]="precioMin" (ngModelChange)="cargarCoches()">
+    </div>
+    <div class="col-md-2">
+      <input type="number" class="form-control" placeholder="Precio Max" [(ngModel)]="precioMax" (ngModelChange)="cargarCoches()">
+    </div>
+    <div class="col-md-2">
+      <input type="number" class="form-control" placeholder="Año Min" [(ngModel)]="anioMin" (ngModelChange)="cargarCoches()">
+    </div>
+    <div class="col-md-2">
+      <input type="number" class="form-control" placeholder="Año Max" [(ngModel)]="anioMax" (ngModelChange)="cargarCoches()">
+    </div>
+  </div>
+
+  <!-- Mientras carga pongo un spinner -->
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status"></div>
+  </div>
+
+  <!-- Cuando cargan los datos y no hay coches -->
+  <div *ngIf="!loading && coches.length === 0" class="text-center">
+    <p>No hay coches disponibles.</p>
+  </div>
+
+  <!-- Cuando cargan los datos y hay coches -->
+  <div *ngIf="!loading && coches.length > 0" class="row">
+    <div class="col-md-4 mb-4" *ngFor="let coche of coches">
+      <div class="card">
+        <img *ngIf="coche.imagen" [src]="coche.imagen" alt="{{ coche.marca }} {{ coche.modelo }}" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{ coche.marca }} {{ coche.modelo }}</h5>
+          <hr>
+          <p class="card-text"><strong>Año:</strong> {{ coche.anio }}</p>
+          <p class="card-text"><strong>Precio:</strong> {{ coche.precio }}€</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,38 +1,39 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+// Interfaz Coche
+export interface Coche {
+  id: number;
+  marca: string;
+  modelo: string;
+  anio: number;
+  precio: number;
+  imagen: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
-export class CocheService {
+export class CochesService {
 
   private apiUrl = 'http://localhost:8000/coches';
 
   constructor(private http: HttpClient) { }
 
-  // Método para obtener todos los coches
-  getCoches(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  // Método para obtener los coches
+  // Observable<Coche[]> es una promesa, que devuelve un array de Coche, se utiliza para funciones asincronas
+  obtenerCoches(filtros: any = {}): Observable<Coche[]> {
+    let params = new HttpParams();
+
+    // Agregar los filtros si existen
+    Object.keys(filtros).forEach((key) => {
+      if (filtros[key]) {
+        params = params.set(key, filtros[key]);
+      }
+    });
+
+    return this.http.get<Coche[]>(this.apiUrl, { params });
   }
 
-  // Método para obtener un coche por ID
-  getCoche(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
-  }
-
-  // Método para crear un coche
-  addCoche(coche: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, coche);
-  }
-
-  // Método para actualizar un coche
-  updateCoche(id: number, coche: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, coche);
-  }
-
-  // Método para eliminar un coche
-  deleteCoche(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
-  }
 }

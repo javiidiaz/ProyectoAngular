@@ -9,11 +9,40 @@ use Illuminate\Support\Facades\Storage;
 class CocheController extends Controller
 {
 
-    // Obtener todos los coches
-    public function index()
-    {
-        return response()->json(Coche::all(), 200);
+    // Obtener todos los coches y filtrar por marca, modelo, año y precio
+    public function index(Request $request){
+        $query = Coche::query();
+
+        // Filtro por marca y modelo
+        if ($request->has('marca')) {
+            $query->where('marca', $request->marca);
+        }
+
+        if ($request->has('modelo')) {
+            $query->where('modelo', $request->modelo);
+        }
+
+        // Filtros por año (mínimo y máximo)
+        if ($request->has('anio_min')) {
+            $query->where('anio', '>=', $request->anio_min);
+        }
+
+        if ($request->has('anio_max')) {
+            $query->where('anio', '<=', $request->anio_max);
+        }
+
+        // Filtros por precio (mínimo y máximo)
+        if ($request->has('precio_min')) {
+            $query->where('precio', '>=', $request->precio_min);
+        }
+
+        if ($request->has('precio_max')) {
+            $query->where('precio', '<=', $request->precio_max);
+        }
+
+        return response()->json($query->get());
     }
+
 
 
     // Obtener un coche por ID
