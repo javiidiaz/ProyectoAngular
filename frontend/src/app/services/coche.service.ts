@@ -13,13 +13,12 @@ export interface Coche {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CochesService {
-
   private apiUrl = 'http://localhost:8000/coches';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // Método para obtener los coches
   // Observable<Coche[]> es una promesa, que devuelve un array de Coche, se utiliza para funciones asincronas
@@ -27,13 +26,15 @@ export class CochesService {
     let params = new HttpParams();
 
     // Agregar los filtros si existen
+    // Recibe un objeto 'filtros' con las claves como los filtros a aplicar a la solicitud.
     Object.keys(filtros).forEach((key) => {
+      // Verifica si el valor del filtro para la clave 'key' no es un valor falso
       if (filtros[key]) {
+        // Agrega el filtro como un parámetro a 'params' usando la clave 'key' y el valor correspondiente de 'filtros[key]'.
         params = params.set(key, filtros[key]);
       }
     });
 
     return this.http.get<Coche[]>(this.apiUrl, { params });
   }
-
 }

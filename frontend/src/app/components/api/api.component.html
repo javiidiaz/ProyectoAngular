@@ -42,7 +42,7 @@
           <h5 class="card-title">{{ coche.marca }} {{ coche.modelo }}</h5>
           <hr>
           <p class="card-text"><strong>Año:</strong> {{ coche.anio }}</p>
-          <p class="card-text"><strong>Precio:</strong> {{ coche.precio }}€</p>
+          <p class="card-text"><strong>Precio:</strong> {{ coche.precio | formatPrice }}€</p>
         </div>
       </div>
     </div>

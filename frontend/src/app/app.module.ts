@@ -9,6 +9,7 @@ import { BienvenidaComponent } from './components/bienvenida/bienvenida.componen
 import { AcercadeComponent } from './components/acercade/acercade.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ApiComponent } from './components/api/api.component';
+import { FormatPricePipe } from './pipes/format-price.pipe';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ApiComponent } from './components/api/api.component';
     BienvenidaComponent,
     AcercadeComponent,
     NotfoundComponent,
-    ApiComponent
+    ApiComponent,
+    FormatPricePipe
   ],
   imports: [
     BrowserModule,

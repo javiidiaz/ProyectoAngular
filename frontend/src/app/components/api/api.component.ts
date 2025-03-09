@@ -29,6 +29,7 @@ export class ApiComponent implements OnInit {
   // Método para obtener los coches con filtros
   cargarCoches(): void {
     this.loading = true;
+
     this.cochesService.obtenerCoches({
       marca: this.marca,
       modelo: this.modelo,
