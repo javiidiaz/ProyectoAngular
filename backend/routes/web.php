@@ -8,3 +8,6 @@ Route::get('/coches/{id}', [CocheController::class, 'show'])->name('coches.show'
 Route::post('/coches', [CocheController::class, 'store'])->name('coches.store'); // Crear un coche
 Route::put('/coches/{id}', [CocheController::class, 'update'])->name('coches.update'); // Actualizar un coche
 Route::delete('/coches/{id}', [CocheController::class, 'destroy'])->name('coches.destroy'); // Eliminar un coche
+Route::get('/csrf-token', function () {
+    return response()->json(['csrfToken' => csrf_token()]);
+});

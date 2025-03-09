@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-// Interfaz Coche
 export interface Coche {
   id: number;
   marca: string;
@@ -17,8 +16,23 @@ export interface Coche {
 })
 export class CochesService {
   private apiUrl = 'http://localhost:8000/coches';
+  private csrfToken: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.obtenerCsrfToken().subscribe(
+      (response) => {
+        this.csrfToken = response.csrfToken; // Guarda el token CSRF
+      },
+      (error) => {
+        console.error('Error al obtener el token CSRF:', error);
+      }
+    );
+  }
+
+  // Obtener el token CSRF desde Laravel
+  private obtenerCsrfToken(): Observable<{ csrfToken: string }> {
+    return this.http.get<{ csrfToken: string }>('http://localhost:8000/csrf-token');
+  }
 
   // Método para obtener los coches
   // Observable<Coche[]> es una promesa, que devuelve un array de Coche, se utiliza para funciones asincronas
@@ -37,4 +51,47 @@ export class CochesService {
 
     return this.http.get<Coche[]>(this.apiUrl, { params });
   }
+
+  // Agregar un coche
+  agregarCoche(coche: Coche): Observable<Coche> {
+    const headers = new HttpHeaders({
+      'X-CSRF-TOKEN': this.csrfToken,
+    });
+    return this.http.post<Coche>(this.apiUrl, coche, { headers });
+  }
+
+  // Editar un coche
+  editarCoche(id: number, coche: Coche): Observable<Coche> {
+    const headers = new HttpHeaders({
+      'X-CSRF-TOKEN': this.csrfToken,
+    });
+    return this.http.put<Coche>(`${this.apiUrl}/${id}`, coche, { headers });
+  }
+
+  // Eliminar un coche
+  eliminarCoche(id: number): Observable<void> {
+    const headers = new HttpHeaders({
+      'X-CSRF-TOKEN': this.csrfToken,
+    });
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
