@@ -1,13 +1,19 @@
 <?php
+ use App\Http\Controllers\CocheController;
+ use Illuminate\Support\Facades\Route;
+ use Illuminate\Http\Request;
 
-use App\Http\Controllers\CocheController;
-use Illuminate\Support\Facades\Route;
+    // Obtener todos los coches
+    Route::get('/coches', [CocheController::class, 'index']);
 
-Route::get('/coches', [CocheController::class, 'index'])->name('coches.index'); // Mostrar todos los coches
-Route::get('/coches/{id}', [CocheController::class, 'show'])->name('coches.show'); // Ver detalles de un coche por ID
-Route::post('/coches', [CocheController::class, 'store'])->name('coches.store'); // Crear un coche
-Route::put('/coches/{id}', [CocheController::class, 'update'])->name('coches.update'); // Actualizar un coche
-Route::delete('/coches/{id}', [CocheController::class, 'destroy'])->name('coches.destroy'); // Eliminar un coche
-Route::get('/csrf-token', function () {
-    return response()->json(['csrfToken' => csrf_token()]);
-});
+    // Obtener un coche por ID
+    Route::get('/coches/{id}', [CocheController::class, 'show']);
+
+    // Crear un nuevo coche
+    Route::post('/coches', [CocheController::class, 'store']);
+
+    // Actualizar un coche por ID
+    Route::put('/coches/{id}', [CocheController::class, 'update']);
+
+    // Eliminar un coche por ID
+    Route::delete('/coches/{id}', [CocheController::class, 'destroy']);
