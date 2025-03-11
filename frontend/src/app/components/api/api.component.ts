@@ -5,7 +5,7 @@ import { CochesService, Coche } from '../../services/coche.service';
   selector: 'app-api',
   standalone: false,
   templateUrl: './api.component.html',
-  styleUrls: ['./api.component.scss']
+  styleUrls: ['./api.component.css']
 })
 export class ApiComponent implements OnInit {
   coches: Coche[] = [];
