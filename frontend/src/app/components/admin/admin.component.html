@@ -1,0 +1,51 @@
+<div class="container my-5">
+  <h2 class="text-center mb-4">Administrar Artículos</h2>
+
+  <!-- Formulario para añadir/editar artículo -->
+<div class="card p-3 mb-4">
+  <h4 *ngIf="articulo.id; else addArticle">Editar Artículo</h4>
+  <ng-template #addArticle><h4>Añadir Artículo</h4></ng-template>
+
+  <div class="row">
+    <div class="col-md-5">
+      <input [(ngModel)]="articulo.descripcion" type="text" class="form-control" placeholder="Descripción">
+    </div>
+    <div class="col-md-3">
+      <input [(ngModel)]="articulo.precio" type="number" class="form-control" placeholder="Precio">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary" (click)="agregarArticulo()" *ngIf="articulo.id; else addButtonArticle">
+        Actualizar
+      </button>
+      <ng-template #addButtonArticle>
+        <button class="btn btn-primary" (click)="agregarArticulo()">Añadir</button>
+      </ng-template>
+      <button class="btn btn-secondary ms-4" (click)="resetFormulario()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Tabla de artículos -->
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Descripción</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let articulo of articulos">
+        <td>{{ articulo.id }}</td>
+        <td>{{ articulo.descripcion }}</td>
+        <td>{{ articulo.precio }}€</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editarArticulo(articulo)">Editar</button>
+          <button class="btn btn-danger btn-sm ms-4" (click)="eliminarArticulo(articulo.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

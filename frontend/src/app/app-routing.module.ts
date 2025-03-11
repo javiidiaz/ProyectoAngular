@@ -4,11 +4,13 @@ import { BienvenidaComponent } from './components/bienvenida/bienvenida.componen
 import { ApiComponent } from './components/api/api.component';
 import { AcercadeComponent } from './components/acercade/acercade.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 const routes: Routes = [
   { path: '', component: BienvenidaComponent },
   { path: 'api', component: ApiComponent },
   { path: 'acercade', component: AcercadeComponent },
+  { path: 'admin', component: AdminComponent },
   { path: '**', component: NotfoundComponent },
 ];
 

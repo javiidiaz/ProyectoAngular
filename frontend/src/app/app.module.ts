@@ -10,6 +10,7 @@ import { AcercadeComponent } from './components/acercade/acercade.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { ApiComponent } from './components/api/api.component';
 import { FormatPricePipe } from './pipes/format-price.pipe';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormatPricePipe } from './pipes/format-price.pipe';
     AcercadeComponent,
     NotfoundComponent,
     ApiComponent,
-    FormatPricePipe
+    FormatPricePipe,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
